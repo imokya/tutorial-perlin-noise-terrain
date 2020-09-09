@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>柏林噪声</title>
+</head>
+<body>
+  
+  <canvas width="640" height="400" id="canvas" style="width:640px;height:400px;"></canvas>
+
+
+  <script src="js/vendors/simplex-noise.js"></script>
+  <script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    const simplex = new SimplexNoise()
+    let progress = 0
+    function update() {
+      let tx = Math.random() * 610 + 20
+      //let tx = simplex.noise2D(progress, 0)
+      //tx = (tx + 1) / 2
+      progress += 0.01
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      ctx.beginPath()
+      ctx.fillStyle = '#000000'
+      ctx.arc(tx, 200, 10, 0, Math.PI * 2)
+      ctx.fill()
+     
+      requestAnimationFrame(update.bind(this))
+    }
+    update()
+  </script>
+</body>
+</html>
